@@ -4,6 +4,7 @@ import Navbar from "./components/navbar";
 import Map from "./components/map";
 import Graph from "./components/graph";
 import Countries from "./components/countries";
+import CountryData from "./components/api";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Countries />
         <Map />
         <Graph />
+        <CountryData />
       </div>
     </div>
   );
