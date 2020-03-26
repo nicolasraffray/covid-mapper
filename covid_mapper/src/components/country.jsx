@@ -11,9 +11,12 @@ class Country extends Component {
   render() {
     return (
       <React.Fragment>
-        <button>
           {this.props.name}
-        </button>
+          <ul>
+            <li>Infections: {this.props.infections}</li>
+            <li>Deaths: {this.props.deaths}</li>
+            <li>Recoveries: {this.props.recoveries}</li>
+          </ul>
       </React.Fragment>
     );
   }
