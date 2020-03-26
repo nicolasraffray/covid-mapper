@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import Country from './country.jsx'
+import CountryData from './api'
 
 class Countries extends Component {
   state = {
     countries: [
-      { id: 1, name: "UK", infections: "10", deaths: "2", recoveries: "3" },
-      { id: 2, name: "USA", infections: "10", deaths: "2", recoveries: "3" },
-      { id: 3, name: "Italy", infections: "10", deaths: "2", recoveries: "3" },
-      { id: 4, name: "Spain", infections: "10", deaths: "2", recoveries: "3" }
+      { id: 1, name: "Iceland", infections: "10", deaths: "2", recoveries: "3" }
     ]
   };
 
+  
   render() {
+    console.log(this.getData())
     return (
       <div className="countries">
         <h4>Country Statistics</h4>

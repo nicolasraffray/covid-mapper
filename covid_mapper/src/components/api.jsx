@@ -5,7 +5,7 @@ const CountryData = () => {
   const [countryData, setCountryData] = useState({});
 
   async function fetchData(){
-    const response = await fetch("https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=Canada", {
+    const response = await fetch("https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=Iceland", {
 	    "method": "GET",
 	    "headers": {
 		    "x-rapidapi-host": "covid-19-coronavirus-statistics.p.rapidapi.com",
@@ -22,13 +22,9 @@ const CountryData = () => {
   useEffect(() => {
     fetchData()
   })
-  return (
-    <div>
-      <span>{JSON.stringify(countryData)}</span>
-      <hr />
-      <span>Has error: {JSON.stringify(hasError)}</span>
-    </div>
-  );
+
+  return JSON.stringify(countryData)
+ 
 }
 
 export default CountryData;
