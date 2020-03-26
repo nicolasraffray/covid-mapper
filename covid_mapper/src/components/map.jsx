@@ -4,6 +4,7 @@ class Map extends Component {
   render() {
     return (
       <div className="map">
+        <h4>Map</h4>
         <img
           className="mapImage"
           height="500px"

@@ -13,7 +13,8 @@ class Countries extends Component {
 
   render() {
     return (
-      <div>
+      <div className="countries">
+        <h4>Country Statistics</h4>
       {this.state.countries.map(country => (
         <Country
         key={country.id}
