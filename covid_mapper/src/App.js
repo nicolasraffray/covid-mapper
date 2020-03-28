@@ -14,6 +14,7 @@ function App() {
         <Countries />
         <Map />
         <Graph />
+        <CountryData />
       </div>
     </div>
   );

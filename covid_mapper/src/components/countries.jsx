@@ -1,30 +1,58 @@
 import React, { Component } from "react";
-import Country from './country.jsx'
-import CountryData from './api'
+import Country from "./country.jsx";
+import CountryData from "./api";
 
 class Countries extends Component {
   state = {
-    countries: [
-      { id: 1, name: "Iceland", infections: "10", deaths: "2", recoveries: "3" }
-    ]
+    countries: [],
+    error: null,
+    isLoaded: false
   };
 
-  
+  componentDidMount() {
+    fetch(
+      "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=Iceland",
+      {
+        method: "GET",
+        headers: {
+          "x-rapidapi-host": "covid-19-coronavirus-statistics.p.rapidapi.com",
+          "x-rapidapi-key": "2bb49386fdmsh5daac6ca9add22ep1484a8jsn9816903163ef"
+        }
+      }
+    )
+      .then(response => response.json())
+      .then(response =>
+        this.setState(
+          {
+            countries: response.data["covid19Stats"],
+            isLoaded: true,
+            error: false
+          },
+          error => {
+            this.setState({
+              isLoaded: false,
+              error: true
+            });
+          }
+        )
+      );
+  }
+
   render() {
-    // console.log(this.getData())
+    console.log(this.state.countries);
     return (
       <div className="countries">
         <h4>Country Statistics</h4>
-      {this.state.countries.map(country => (
-        <Country
-        key={country.id}
-        name={country.name}
-        infections={country.infections}
-        deaths={country.deaths}
-        recoveries={country.recoveries}
-         />
-      ))}
-    </div>
+        {this.state.countries.map(country => (
+          <Country
+            key={country.id}
+            name={country.country}
+            infections={country.confirmed}
+            deaths={country.deaths}
+            recoveries={country.recovered}
+          />
+        ))}
+      </div>
     );
   }
 }
