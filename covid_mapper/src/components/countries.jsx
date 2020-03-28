@@ -10,7 +10,7 @@ class Countries extends Component {
 
   componentDidMount() {
     fetch(
-      "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=Spain",
+      "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=Iceland&country=Spain",
       {
         method: "GET",
         headers: {
