@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Country from "./country.jsx";
-import CountryData from "./api";
 
 class Countries extends Component {
   state = {
@@ -11,7 +10,7 @@ class Countries extends Component {
 
   componentDidMount() {
     fetch(
-      "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=Iceland",
+      "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=Spain",
       {
         method: "GET",
         headers: {
@@ -40,12 +39,13 @@ class Countries extends Component {
 
   render() {
     console.log(this.state.countries);
+
     return (
       <div className="countries">
         <h4>Country Statistics</h4>
         {this.state.countries.map(country => (
           <Country
-            key={country.id}
+            key={country.country}
             name={country.country}
             infections={country.confirmed}
             deaths={country.deaths}
