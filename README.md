@@ -1,3 +1,8 @@
 # Covid19Project2020
 
-Yooooo
+## Overview
+
+
+## How to setup
+
+- Clone this repo

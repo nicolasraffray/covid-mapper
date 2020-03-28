@@ -11,7 +11,7 @@ class Countries extends Component {
 
   
   render() {
-    console.log(this.getData())
+    // console.log(this.getData())
     return (
       <div className="countries">
         <h4>Country Statistics</h4>
