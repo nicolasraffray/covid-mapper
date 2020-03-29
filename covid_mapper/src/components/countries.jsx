@@ -10,7 +10,7 @@ class Countries extends Component {
 
   componentDidMount() {
     fetch(
-      "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=Iceland&country=Spain",
+      "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=",
       {
         method: "GET",
         headers: {
@@ -23,7 +23,7 @@ class Countries extends Component {
       .then(response =>
         this.setState(
           {
-            countries: response.data["covid19Stats"],
+            countries: response.data["covid19Stats"].slice(3257, 3430),
             isLoaded: true,
             error: false
           },
@@ -37,9 +37,11 @@ class Countries extends Component {
       );
   }
 
-  render() {
-    console.log(this.state.countries);
 
+  render() {
+    
+    console.log(this.state.countries)
+  
     return (
       <div className="countries">
         <h4>Country Statistics</h4>

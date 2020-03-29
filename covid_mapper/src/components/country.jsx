@@ -13,7 +13,7 @@ class Country extends Component {
   }
   render() {
     return (
-      <React.Fragment>
+      <div>
         <button onClick={this.handleShowData}>{this.props.name}</button>
         {this.state.handleShow && 
         <ul>
@@ -21,7 +21,7 @@ class Country extends Component {
           <li>Deaths: {this.props.deaths}</li>
           <li>Recoveries: {this.props.recoveries}</li>
         </ul>}
-      </React.Fragment>
+      </div>
     );
   }
 }
