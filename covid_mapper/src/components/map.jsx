@@ -14,19 +14,17 @@ export class MapContainer extends Component {
   }
 
   onMapClicked = (mapProps, map, event) => {
+    console.log("YOU CLICKED ON THE MAP")
+  }
+
+  onMarkerClicked = (mapProps, marker, event) => {
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
-    console.log(lat, lng);
-    // google
-
-    // let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyA6sCpEaxSZBY0P5v7ugZZ2HgJlAdlyhiQ`
-    // fetch(url)
-    //   .then(response =>
-    //     this.setState(
-    //       {
-    //         data: response
-    //       }
-    //     ))
+    console.log("You Clicked on a Marker")
+    console.log("lat long",lat, lng)
+    console.log("Props", mapProps);
+    console.log("Map", marker)
+    console.log("event", event)
   };
 
   apiIsLoaded = (map, maps, center) => {
@@ -44,10 +42,13 @@ export class MapContainer extends Component {
 
   generateMarkers = () => {
     return this.props.countries.map((country, index) => {
-      console.log(country.center)
-      return <Marker key={index} id={index} position={ country.center}/>
+      return <Marker key={index} 
+                     id={country.country} 
+                     position={ country.center}
+                     onClick={this.onMarkerClicked}
+                     onMouseOver={this.onMarkerClicked}/>
     }
-    )}
+  )}
 
   render() {
 
