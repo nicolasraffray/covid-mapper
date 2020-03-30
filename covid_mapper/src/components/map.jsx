@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import { Map, GoogleApiWrapper, Marker, Circle } from 'google-maps-react';
+import styles from './assets/mapStyle.json'
 
 
 export class MapContainer extends Component {
@@ -50,11 +51,13 @@ export class MapContainer extends Component {
     }
   )}
 
-  render() {
 
+  render() {
+    console.log(styles)
     return (
       <Map
       google={this.props.google}
+      styles={styles}
       zoom={2}
       initialCenter={{ lat: 52.37572357014853, lng: -0.8866606942867694}}
       onClick={this.onMapClicked}
