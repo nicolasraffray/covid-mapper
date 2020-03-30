@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import Geocode from "react-geocode";
-import GoogleMapReact from "google-maps-react";
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -43,22 +42,23 @@ export class MapContainer extends Component {
   };
 
   render() {
-    const googleAPIKey = "AIzaSyA6sCpEaxSZBY0P5v7ugZZ2HgJlAdlyhiQ";
 
     // const MapExample = ({ center, zoom }) => {
     return (
-      <GoogleMapReact
-        google={this.props.google}
-        bootstrapURLKeys={{ key: googleAPIKey }}
-        yesIWantToUseGoogleMapApiInternals={true}
-        defaultZoom={2}
-        defaultCenter={{ lng: 51.5074, lat: 0.1278 }}
-        onGoogleApiLoaded={({ map, maps }) =>
-          this.apiIsLoaded(map, maps, { lng: 51.5074, lat: 0.1278 })
-        }
-      />
+      <Map
+      google={this.props.google}
+      zoom={2}
+      initialCenter={{ lat: 52.37572357014853, lng: -0.8866606942867694}}
+      onClick={this.onMapClicked}
+    >
+      <Marker position={{ lat: 51.49547659152124, lng: -0.130530550286716}} />
+    </Map>
     );
     // };
   }
 }
-export default MapContainer;
+const googleAPIKey = "AIzaSyA6sCpEaxSZBY0P5v7ugZZ2HgJlAdlyhiQ";
+
+export default GoogleApiWrapper({
+  apiKey: googleAPIKey
+})(MapContainer);
