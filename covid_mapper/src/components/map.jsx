@@ -43,7 +43,8 @@ export class MapContainer extends Component {
           lng: -0.127758
         }}
         zoom={2}
-        onClick={this.onMapClicked}> 
+        onClick={this.onMapClicked}
+        circle={this.handleCircle}> 
       </Map>
     );
   }
