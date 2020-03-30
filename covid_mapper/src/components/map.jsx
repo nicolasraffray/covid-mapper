@@ -1,19 +1,67 @@
 import React, { Component } from "react";
+import Geocode from "react-geocode";
+import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
-class Map extends Component {
+
+export class MapContainer extends Component {
+  constructor(props){
+    super(props);
+    
+    this.state = {
+      lat: null, 
+      lng: null,
+      data: null
+    }
+  }
+
+
+  onMapClicked = (mapProps, map, event) => {
+    const lat = event.latLng.lat()
+    const lng = event.latLng.lng()
+    Geocode.setApiKey("AIzaSyA6sCpEaxSZBY0P5v7ugZZ2HgJlAdlyhiQ")
+    Geocode.fromLatLng(`${lat}`, `${lng}`).then(
+      response => {
+        const address = response.results[0].formatted_address;
+        console.log(address);
+      },
+      error => {
+        console.error(error);
+      }
+    );
+
+
+    console.log(lat, lng)
+
+    // google
+
+
+    // let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyA6sCpEaxSZBY0P5v7ugZZ2HgJlAdlyhiQ`
+    // fetch(url)
+    //   .then(response => 
+    //     this.setState(
+    //       {
+    //         data: response
+    //       }
+    //     ))
+  }
+
   render() {
+    console.log(this.state.data)
     return (
-      <div className="map">
-        <h4>Map</h4>
-        <img
-          className="mapImage"
-          height="500px"
-          width="750px"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/World_map_%28Miller_cylindrical_projection%2C_blank%29.svg/1280px-World_map_%28Miller_cylindrical_projection%2C_blank%29.svg.png"
-        ></img>
-      </div>
+  
+      <Map 
+        google={this.props.google} 
+        initialCenter={{
+          lat: 51.507351,
+          lng: -0.127758
+        }}
+        zoom={2}
+        onClick={this.onMapClicked}> 
+      </Map>
     );
   }
 }
-
-export default Map;
+ 
+export default GoogleApiWrapper({
+  apiKey: ("AIzaSyA6sCpEaxSZBY0P5v7ugZZ2HgJlAdlyhiQ")
+})(MapContainer)

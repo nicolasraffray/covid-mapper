@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Navbar from "./components/navbar";
-import Map from "./components/map";
+import MapContainer from "./components/map";
 import Graph from "./components/graph";
 import Countries from "./components/countries";
 
@@ -11,7 +11,7 @@ function App() {
       <Navbar />
       <div className="Container">
         <Countries />
-        <Map />
+        <MapContainer />
         <Graph />
       </div>
     </div>
