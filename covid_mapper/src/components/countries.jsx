@@ -24,7 +24,7 @@ class Countries extends Component {
       .then(response =>
         this.setState(
           {
-            countries: response.data["covid19Stats"].slice(3257, 3430),
+            countries: response.data["covid19Stats"].slice(3261, 3430),
             US: this.updateUS(response.data["covid19Stats"].slice(0, 3170)),
             isLoaded: true,
             error: false
