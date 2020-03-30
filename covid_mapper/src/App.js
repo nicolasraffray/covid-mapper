@@ -4,7 +4,7 @@ import Navbar from "./components/navbar";
 import MapContainer from "./components/map";
 import Graph from "./components/graph";
 import Countries from "./components/countries";
-import ref_country_codes from './components/assets/countries-lat-long.json' 
+import ref_country_codes from "./components/assets/countries-lat-long.json";
 
 class App extends Component {
   state = {
@@ -29,7 +29,9 @@ class App extends Component {
       .then(response =>
         this.setState(
           {
-            countries: this.createCountry(response.data["covid19Stats"].slice(3261, 3430)),
+            countries: this.createCountry(
+              response.data["covid19Stats"].slice(3261, 3430)
+            ),
             US: this.updateUS(response.data["covid19Stats"].slice(0, 3170)),
             isLoaded: true,
             error: false
@@ -42,58 +44,53 @@ class App extends Component {
           }
         )
       );
-      
   }
 
-  createCountry(api_countries){
-    const countries = []
-    ref_country_codes.ref_country_codes.forEach(one => api_countries.forEach(two => {
-      if(one.country === two.country) {
-        // obj create with long and lat, deaths, confirmed, recovered
-        // countries.append
-        countries.push( {
-          country: two.country,
-          recovered: two.recovered,
-          deaths: two.deaths,
-          confirmed: two.confirmed,
-          long: one.longitude,
-          lat: one.latitude
-        })
-      }
-    }))
+  createCountry(api_countries) {
+    const countries = [];
+    ref_country_codes.ref_country_codes.forEach(one =>
+      api_countries.forEach(two => {
+        if (one.country === two.country) {
+          countries.push({
+            country: two.country,
+            recovered: two.recovered,
+            deaths: two.deaths,
+            confirmed: two.confirmed,
+            center: { lat: one.latitude, long: one.longitude }
+          });
+        }
+      })
+    );
     return countries;
   }
 
   updateUS(USA) {
-    const total = [0,0,0]
-    USA.map(state => (
-      total[0] += state.confirmed
-    ))
-    USA.map(state => (
-      total[1] += state.recovered
-    ))
-    USA.map(state => (
-      total[2] += state.deaths
-    ))
-    return ([{"country": "US", 
-            "confirmed": total[0],
-            "recovered": total[1],
-            "deaths": total[2]}])
+    const total = [0, 0, 0];
+    USA.map(state => (total[0] += state.confirmed));
+    USA.map(state => (total[1] += state.recovered));
+    USA.map(state => (total[2] += state.deaths));
+    return [
+      {
+        country: "US",
+        confirmed: total[0],
+        recovered: total[1],
+        deaths: total[2]
+      }
+    ];
   }
 
-  render(){
-
-  return (
-    <div className="App">
-      <Navbar />
-      <div className="Container">
-        <Countries
-        countries={this.state.countries} />
-        <MapContainer />
-        <Graph />
+  render() {
+    return (
+      <div className="App">
+        <Navbar />
+        <div className="Container">
+          <Countries countries={this.state.countries} />
+          <MapContainer countries={this.state.countries} />
+          <Graph />
+        </div>
       </div>
-    </div>
-  )};
+    );
+  }
 }
 
 export default App;
