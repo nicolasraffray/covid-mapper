@@ -18,20 +18,7 @@ export class MapContainer extends Component {
   onMapClicked = (mapProps, map, event) => {
     const lat = event.latLng.lat()
     const lng = event.latLng.lng()
-    Geocode.setApiKey("AIzaSyA6sCpEaxSZBY0P5v7ugZZ2HgJlAdlyhiQ")
-    Geocode.fromLatLng(`${lat}`, `${lng}`).then(
-      response => {
-        const address = response.results[0].formatted_address;
-        console.log(address);
-      },
-      error => {
-        console.error(error);
-      }
-    );
-
-
     console.log(lat, lng)
-
     // google
 
 
