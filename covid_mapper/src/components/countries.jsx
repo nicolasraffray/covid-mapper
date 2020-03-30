@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Country from "./country.jsx";
+import ref_country_codes from './assets/countries-lat-long.json' 
 
 class Countries extends Component {
   state = {
@@ -24,7 +25,7 @@ class Countries extends Component {
       .then(response =>
         this.setState(
           {
-            countries: response.data["covid19Stats"].slice(3261, 3430),
+            countries: this.createCountry(response.data["covid19Stats"].slice(3261, 3430)),
             US: this.updateUS(response.data["covid19Stats"].slice(0, 3170)),
             isLoaded: true,
             error: false
@@ -37,6 +38,26 @@ class Countries extends Component {
           }
         )
       );
+      
+  }
+
+  createCountry(api_countries){
+    const countries = []
+    ref_country_codes.ref_country_codes.forEach(one => api_countries.forEach(two => {
+      if(one.country === two.country) {
+        // obj create with long and lat, deaths, confirmed, recovered
+        // countries.append
+        countries.push( {
+          country: two.country,
+          recovered: two.recovered,
+          deaths: two.deaths,
+          confirmed: two.confirmed,
+          long: one.longitude,
+          lat: one.latitude
+        })
+      }
+    }))
+    return countries;
   }
 
   updateUS(USA) {
@@ -57,11 +78,9 @@ class Countries extends Component {
   }
 
 
+
+
   render() {
-    
-    console.log(this.state.countries)
-    console.log(this.state.US)
-  
     return (
       <div className="countries">
         <h4>Country Statistics</h4>
@@ -72,15 +91,8 @@ class Countries extends Component {
             infections={country.confirmed}
             deaths={country.deaths}
             recoveries={country.recovered}
-          />
-        ))}
-        {this.state.US.map(country => (
-          <Country
-            key={country.country}
-            name={country.country}
-            infections={country.confirmed}
-            deaths={country.deaths}
-            recoveries={country.recovered}
+            long={country.long}
+            lat={country.lat}
           />
         ))}
       </div>

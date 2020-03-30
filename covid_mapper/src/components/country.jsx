@@ -20,6 +20,9 @@ class Country extends Component {
           <li>Infections: {this.props.infections}</li>
           <li>Deaths: {this.props.deaths}</li>
           <li>Recoveries: {this.props.recoveries}</li>
+          <li>Long: {this.props.long}</li>
+          <li>Lat: {this.props.lat}</li>
+
         </ul>}
       </div>
     );
