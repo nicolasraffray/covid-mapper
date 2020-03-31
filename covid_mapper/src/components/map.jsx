@@ -16,6 +16,9 @@ export class MapContainer extends Component {
 
   onMapClicked = (mapProps, map, event) => {
     console.log("YOU CLICKED ON THE MAP")
+    const lat = event.latLng.lat();
+    const lng = event.latLng.lng();
+    console.log("lat long",lat, lng)
   }
 
   onMarkerClicked = (mapProps, marker, event) => {
@@ -59,7 +62,7 @@ export class MapContainer extends Component {
       google={this.props.google}
       styles={styles}
       zoom={2.25}
-      initialCenter={{ lat: 52.37572357014853, lng: -0.8866606942867694}}
+      initialCenter={{ lat: 29.940393900583192, lng: 31.548745980877232}}
       onClick={this.onMapClicked}
     >
       {this.generateMarkers()}
@@ -68,8 +71,7 @@ export class MapContainer extends Component {
     // };
   }
 }
-const googleAPIKey = "AIzaSyA6sCpEaxSZBY0P5v7ugZZ2HgJlAdlyhiQ";
 
 export default GoogleApiWrapper({
-  apiKey: googleAPIKey
+  apiKey: process.env.REACT_APP_GOOGLE_API
 })(MapContainer);
