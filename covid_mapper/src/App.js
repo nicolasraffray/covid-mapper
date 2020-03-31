@@ -10,7 +10,6 @@ import us_codes from "./components/assets/USlatlong.json";
 class App extends Component {
   state = {
     countries: [],
-    US: [],
     error: null,
     isLoaded: false
   };
@@ -31,7 +30,6 @@ class App extends Component {
         this.setState(
           {
             countries: this.createCountry(response.data["covid19Stats"]),
-            // US: this.updateUS(response.data["covid19Stats"],
             isLoaded: true,
             error: false
           },
@@ -65,15 +63,12 @@ class App extends Component {
       })
     );
 
-    console.log("beforeupdate usa", usa);
     var unique = usa.filter((v, i, a) => a.indexOf(v) === i);
-    console.log("USAAAAA", unique);
 
     let abc = this.updateUS(unique);
-    console.log("abc", abc);
     us_codes.us_codes.forEach(state =>
       abc.forEach(obj => {
-        if (abc.key === state.state) {
+        if (obj.stateName === state.state) {
           countries.push({
             country: state.state,
             recovered: abc.recovered,
@@ -93,7 +88,6 @@ class App extends Component {
     let finalArray = [];
 
     var unique = USA.filter((v, i, a) => a.indexOf(v) === i);
-    console.log("USAAAAA", unique);
 
     unique.forEach(function(d) {
       if (totalStates.hasOwnProperty(d.province)) {
@@ -111,8 +105,6 @@ class App extends Component {
     });
 
     finalArray = Object.keys(totalStates).map(k => totalStates[k]);
-    console.log("Final array", finalArray);
-    console.log("Total states", totalStates);
     return finalArray;
   }
 
