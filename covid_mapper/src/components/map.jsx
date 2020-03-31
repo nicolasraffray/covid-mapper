@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Geocode from "react-geocode";
-import GoogleMapReact from "google-maps-react";
+import { Map, GoogleApiWrapper, Marker, Circle } from 'google-maps-react';
+import styles from './assets/mapStyle.json'
+
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -14,19 +15,20 @@ export class MapContainer extends Component {
   }
 
   onMapClicked = (mapProps, map, event) => {
+    console.log("YOU CLICKED ON THE MAP")
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
-    console.log(lat, lng);
-    // google
+    console.log("lat long",lat, lng)
+  }
 
-    // let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyA6sCpEaxSZBY0P5v7ugZZ2HgJlAdlyhiQ`
-    // fetch(url)
-    //   .then(response =>
-    //     this.setState(
-    //       {
-    //         data: response
-    //       }
-    //     ))
+  onMarkerClicked = (mapProps, marker, event) => {
+    const lat = event.latLng.lat();
+    const lng = event.latLng.lng();
+    console.log("You Clicked on a Marker")
+    console.log("lat long",lat, lng)
+    console.log("Props", mapProps);
+    console.log("Map", marker)
+    console.log("event", event)
   };
 
   apiIsLoaded = (map, maps, center) => {
@@ -42,23 +44,34 @@ export class MapContainer extends Component {
     });
   };
 
-  render() {
-    const googleAPIKey = "AIzaSyA6sCpEaxSZBY0P5v7ugZZ2HgJlAdlyhiQ";
+  generateMarkers = () => {
+    return this.props.countries.map((country, index) => {
+      return <Marker key={index} 
+                     id={country.country} 
+                     position={ country.center}
+                     onClick={this.onMarkerClicked}
+                     onMouseOver={this.onMarkerClicked}/>
+    }
+  )}
 
-    // const MapExample = ({ center, zoom }) => {
+
+  render() {
+    console.log(styles)
     return (
-      <GoogleMapReact
-        google={this.props.google}
-        bootstrapURLKeys={{ key: googleAPIKey }}
-        yesIWantToUseGoogleMapApiInternals={true}
-        defaultZoom={2}
-        defaultCenter={{ lng: 51.5074, lat: 0.1278 }}
-        onGoogleApiLoaded={({ map, maps }) =>
-          this.apiIsLoaded(map, maps, { lng: 51.5074, lat: 0.1278 })
-        }
-      />
+      <Map
+      google={this.props.google}
+      styles={styles}
+      zoom={2.25}
+      initialCenter={{ lat: 29.940393900583192, lng: 31.548745980877232}}
+      onClick={this.onMapClicked}
+    >
+      {this.generateMarkers()}
+    </Map>
     );
     // };
   }
 }
-export default MapContainer;
+
+export default GoogleApiWrapper({
+  apiKey: process.env.REACT_APP_GOOGLE_API
+})(MapContainer);

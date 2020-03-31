@@ -56,7 +56,7 @@ class App extends Component {
             recovered: two.recovered,
             deaths: two.deaths,
             confirmed: two.confirmed,
-            center: { lat: one.latitude, long: one.longitude }
+            center: { lat: one.latitude, lng: one.longitude }
           });
         }
       })
