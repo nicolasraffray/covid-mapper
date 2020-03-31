@@ -18,17 +18,17 @@ export class MapContainer extends Component {
     console.log("YOU CLICKED ON THE MAP")
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
-    console.log("lat long",lat, lng)
+    // console.log("lat long",lat, lng)
   }
 
   onMarkerClicked = (mapProps, marker, event) => {
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
     console.log("You Clicked on a Marker")
-    console.log("lat long",lat, lng)
-    console.log("Props", mapProps);
-    console.log("Map", marker)
-    console.log("event", event)
+    // console.log("lat long",lat, lng)
+    // console.log("Props", mapProps);
+    // console.log("Map", marker)
+    // console.log("event", event)
   };
 
   apiIsLoaded = (map, maps, center) => {
@@ -58,7 +58,7 @@ export class MapContainer extends Component {
 
 
   render() {
-    console.log(styles)
+    // console.log(styles)
     return (
       <Map
       google={this.props.google}
@@ -68,6 +68,8 @@ export class MapContainer extends Component {
       minZoom={2.24}
       maxZoom={12}
       onClick={this.onMapClicked}
+      
+    
     >
       {this.generateMarkers()}
     </Map>

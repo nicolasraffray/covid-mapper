@@ -5,6 +5,7 @@ import MapContainer from "./components/map";
 import Graph from "./components/graph";
 import Countries from "./components/countries";
 import ref_country_codes from "./components/assets/countries-lat-long.json";
+import us_codes from "./components/assets/USlatlong.json"
 
 class App extends Component {
   state = {
@@ -16,7 +17,7 @@ class App extends Component {
 
   componentDidMount() {
     fetch(
-      "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=",
+      "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=US",
       {
         method: "GET",
         headers: {
@@ -30,7 +31,7 @@ class App extends Component {
         this.setState(
           {
             countries: this.createCountry(
-              response.data["covid19Stats"].slice(3261, 3430)
+              response.data["covid19Stats"]
             ),
             US: this.updateUS(response.data["covid19Stats"].slice(0, 3170)),
             isLoaded: true,
@@ -46,10 +47,14 @@ class App extends Component {
       );
   }
 
-  createCountry(api_countries) {
+  createCountry(api_countries, updateUS) {
     const countries = [];
+    const usa = [];
     ref_country_codes.ref_country_codes.forEach(one =>
       api_countries.forEach(two => {
+        if(two.country === "US"){
+          usa.push(two)
+        }
         if (one.country === two.country) {
           countries.push({
             country: two.country,
@@ -61,25 +66,46 @@ class App extends Component {
         }
       })
     );
+
+    this.updateUS(usa)
+
     return countries;
   }
 
+  
   updateUS(USA) {
-    const total = [0, 0, 0];
-    USA.map(state => (total[0] += state.confirmed));
-    USA.map(state => (total[1] += state.recovered));
-    USA.map(state => (total[2] += state.deaths));
-    return [
-      {
-        country: "US",
-        confirmed: total[0],
-        recovered: total[1],
-        deaths: total[2]
-      }
-    ];
+  
+    // const states = USA.filter(province => province.province === "California")
+    
+    var totalDeathsStates = {};
+    var totalConfirmedStates = {};
+    var totalRecoveredStates = {};
+    var totalStates = {deaths: null,  confirmed: null,  recovered: null}
+
+    USA.forEach(function(d) {
+      if (totalDeathsStates.hasOwnProperty(d.province)) {
+        totalDeathsStates[d.province] = totalDeathsStates[d.province] + d.deaths;
+        totalConfirmedStates[d.province] =  totalConfirmedStates[d.province] + d.confirmed;
+        totalRecoveredStates[d.province] =  totalRecoveredStates[d.province] + d.recovered;
+
+      } else {
+        totalDeathsStates[d.province] = d.deaths;
+        totalConfirmedStates[d.province] = d.confirmed;
+        totalRecoveredStates[d.province] = d.recovered;
+        }
+      });
+      console.log(totalDeathsStates)
+      console.log(totalConfirmedStates)
+      console.log(totalRecoveredStates)
+
+
+    
+
+    ;
   }
 
   render() {
+    
     return (
       <div className="App">
         <Navbar />
