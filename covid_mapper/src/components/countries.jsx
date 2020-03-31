@@ -8,15 +8,13 @@ class Countries extends Component {
     return (
       <div className="countries">
         <h4>Country Statistics</h4>
-        {this.props.countries.map(country => (
+        {this.props.countries.map((country, index)  => (
           <Country
-            key={country.country}
+            key={index}
             name={country.country}
             infections={country.confirmed}
             deaths={country.deaths}
             recoveries={country.recovered}
-            long={country.long}
-            lat={country.lat}
           />
         ))}
       </div>
