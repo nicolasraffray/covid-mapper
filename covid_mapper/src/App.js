@@ -17,7 +17,7 @@ class App extends Component {
 
   componentDidMount() {
     fetch(
-      "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=US",
+      "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=",
       {
         method: "GET",
         headers: {
@@ -31,7 +31,7 @@ class App extends Component {
         this.setState(
           {
             countries: this.createCountry(response.data["covid19Stats"]),
-            US: this.updateUS(response.data["covid19Stats"].slice(0, 3170)),
+            // US: this.updateUS(response.data["covid19Stats"],
             isLoaded: true,
             error: false
           },
@@ -65,28 +65,55 @@ class App extends Component {
       })
     );
 
-    this.updateUS(usa);
+    console.log("beforeupdate usa", usa);
+    var unique = usa.filter((v, i, a) => a.indexOf(v) === i);
+    console.log("USAAAAA", unique);
 
+    let abc = this.updateUS(unique);
+    console.log("abc", abc);
+    us_codes.us_codes.forEach(state =>
+      abc.forEach(obj => {
+        if (abc.key === state.state) {
+          countries.push({
+            country: state.state,
+            recovered: abc.recovered,
+            deaths: abc.deaths,
+            confirmed: abc.confirmed,
+            center: { lat: state.latitude, lng: state.longitude }
+          });
+        }
+      })
+    );
+    console.log("countries", countries);
     return countries;
   }
 
   updateUS(USA) {
     var totalStates = {};
+    let finalArray = [];
 
-    USA.forEach(function(d) {
+    var unique = USA.filter((v, i, a) => a.indexOf(v) === i);
+    console.log("USAAAAA", unique);
+
+    unique.forEach(function(d) {
       if (totalStates.hasOwnProperty(d.province)) {
         totalStates[d.province].deaths += d.deaths;
         totalStates[d.province].confirmed += d.confirmed;
         totalStates[d.province].recovered += d.recovered;
       } else {
         totalStates[d.province] = {
+          stateName: d.province,
           deaths: d.deaths,
           confirmed: d.confirmed,
           recovered: d.recovered
         };
       }
     });
-    return totalStates;
+
+    finalArray = Object.keys(totalStates).map(k => totalStates[k]);
+    console.log("Final array", finalArray);
+    console.log("Total states", totalStates);
+    return finalArray;
   }
 
   render() {
