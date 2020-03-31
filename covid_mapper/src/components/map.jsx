@@ -41,6 +41,7 @@ export class MapContainer extends Component {
       map,
       center: center,
       radius: 60000
+      
     });
   };
 
@@ -50,7 +51,8 @@ export class MapContainer extends Component {
                      id={country.country} 
                      position={ country.center}
                      onClick={this.onMarkerClicked}
-                     onMouseOver={this.onMarkerClicked}/>
+                     onMouseOver={this.onMarkerClicked}
+                     icon={"http://maps.google.com/mapfiles/ms/icons/blue.png"}/>
     }
   )}
 
@@ -61,8 +63,10 @@ export class MapContainer extends Component {
       <Map
       google={this.props.google}
       styles={styles}
+      initialCenter={{ lat: 29.94, lng: 31.548}}
       zoom={2.25}
-      initialCenter={{ lat: 29.940393900583192, lng: 31.548745980877232}}
+      minZoom={2.24}
+      maxZoom={12}
       onClick={this.onMapClicked}
     >
       {this.generateMarkers()}

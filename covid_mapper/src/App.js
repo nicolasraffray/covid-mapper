@@ -84,9 +84,9 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <div className="Container">
-          <Countries countries={this.state.countries} />
+          {/* <Countries countries={this.state.countries} /> */}
           <MapContainer countries={this.state.countries} />
-          <Graph />
+          {/* <Graph /> */}
         </div>
       </div>
     );

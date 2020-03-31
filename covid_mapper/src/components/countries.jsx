@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Country from "./country.jsx";
-import ref_country_codes from './assets/countries-lat-long.json' 
 
 class Countries extends Component {
 
