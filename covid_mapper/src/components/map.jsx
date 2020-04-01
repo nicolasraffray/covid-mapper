@@ -34,12 +34,11 @@ export class MapContainer extends Component {
 
   onMarkerClicked = (props, marker, event) => {
     console.log("THIS IS THE MARKER ID", marker.id);
-
+    console.log("This is the props", props);
     this.setState({
       isMarkerShowing: true,
       selectedPlace: props,
       activeMarker: marker
-      // activeMarker: marker.id
     });
 
     console.log("isMarkerShowing", this.state.isMarkerShowing);
@@ -74,13 +73,22 @@ export class MapContainer extends Component {
           key={i}
           position={country.center}
           onClick={this.onMarkerClicked}
+          icon={"http://maps.google.com/mapfiles/ms/icons/blue.png"}
         ></Marker>
       );
     });
   };
 
+  getInfo = countryName => {
+    return this.props.countries.forEach(country => {
+      if (country.country === countryName) {
+        console.log("In if this is confirmed number", country.confirmed);
+        return;
+      }
+    });
+  };
+
   render() {
-    // console.log(styles)
     return (
       <Map
         google={this.props.google}
@@ -95,9 +103,20 @@ export class MapContainer extends Component {
           marker={this.state.activeMarker}
           visible={this.state.isMarkerShowing}
         >
-          <div>
-            <h1>{this.state.selectedPlace.name}</h1>
-          </div>
+          {this.props.countries.map(country => {
+            if (country.country === this.state.selectedPlace.id) {
+              return (
+                <div>
+                  <h6>{country.country}</h6>
+                  Confirmed: {country.confirmed}
+                  <br></br>
+                  Recovered {country.recovered}
+                  <br></br>
+                  Dead: {country.deaths}
+                </div>
+              );
+            }
+          })}
         </InfoWindow>
         {this.generateMarkers()}
       </Map>
