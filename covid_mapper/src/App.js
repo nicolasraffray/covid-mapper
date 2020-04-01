@@ -71,9 +71,9 @@ class App extends Component {
         if (obj.stateName === state.state) {
           countries.push({
             country: state.state,
-            recovered: abc.recovered,
-            deaths: abc.deaths,
-            confirmed: abc.confirmed,
+            recovered: obj.recovered,
+            deaths: obj.deaths,
+            confirmed: obj.confirmed,
             center: { lat: state.latitude, lng: state.longitude }
           });
         }
@@ -107,7 +107,6 @@ class App extends Component {
     finalArray = Object.keys(totalStates).map(k => totalStates[k]);
     return finalArray;
   }
-
   render() {
     return (
       <div className="App">
