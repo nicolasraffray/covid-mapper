@@ -409,7 +409,7 @@
       "longitude": -84
     },
     {
-      "country": "Ivory Cost",
+      "country": "Ivory Coast",
       "alpha2": "CI",
       "alpha3": "CIV",
       "numeric": 384,
@@ -1681,7 +1681,7 @@
       "longitude": 38
     },
     {
-      "country": "Taiwan, Province of China",
+      "country": "Taiwan",
       "alpha2": "TW",
       "alpha3": "TWN",
       "numeric": 158,
@@ -1873,7 +1873,7 @@
       "longitude": -66
     },
     {
-      "country": "Viet Nam",
+      "country": "Vietnam",
       "alpha2": "VN",
       "alpha3": "VNM",
       "numeric": 704,
@@ -1945,9 +1945,9 @@
       "longitude": 65
     },
     {
-      "country": "ms zaandam",
-      "latitude": 80.1373,
-      "longitude": 26.1224
+      "country": "MS Zaandam",
+      "latitude": 26.1224,
+      "longitude": 80.1373
     },
     {
       "country": "Sint Maarten",
@@ -1973,6 +1973,11 @@
       "country": "Carribean Netherlands",
       "latitude": 68.2385,
       "longitude": 12.1784
+    },
+    {
+      "country": "Diamond Princess",
+      "latitude": 35.414583,
+      "longitude": 139.682033
     }
   ]
 }
