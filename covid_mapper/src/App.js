@@ -28,7 +28,7 @@ class App extends Component {
       .then(response =>
         this.setState(
           {
-            countries: response.countries_stat,
+            countries: this.createCountry(response.countries_stat),
             isLoaded: true,
             error: false
           },

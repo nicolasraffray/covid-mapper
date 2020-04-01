@@ -697,7 +697,7 @@
       "longitude": -90.25
     },
     {
-      "country": "Guernsey",
+      "country": "Channel Islands",
       "alpha2": "GG",
       "alpha3": "GGY",
       "numeric": 831,
@@ -977,7 +977,7 @@
       "longitude": -9.5
     },
     {
-      "country": "Libyan Arab Jamahiriya",
+      "country": "Libya",
       "alpha2": "LY",
       "alpha3": "LBY",
       "numeric": 434,
@@ -1433,7 +1433,7 @@
       "longitude": 25
     },
     {
-      "country": "Russian Federation",
+      "country": "Russia",
       "alpha2": "RU",
       "alpha3": "RUS",
       "numeric": 643,
@@ -1950,29 +1950,24 @@
       "longitude": 26.1224
     },
     {
-      "country": "Channel Islands",
-      "latitude": -49.372284,
-      "longitude": -2.364351
-    },
-    {
       "country": "Sint Maarten",
-      "latitude": 63.0548,
-      "longitude": 18.0425
+      "latitude": 18.0425,
+      "longitude": 63.0548
     },
     {
       "country": "Saint Martin",
-      "latitude": 63.0523,
-      "longitude": 18.0826
+      "latitude": 18.0826,
+      "longitude": 63.0523
     },
     {
       "country": "Curaçao",
-      "latitude": 68.99,
-      "longitude": 12.1696
+      "latitude": 12.1696,
+      "longitude": 68.99
     },
     {
       "country": "St. Barth",
-      "latitude": 62.8333,
-      "longitude": 17.9
+      "latitude": 17.9,
+      "longitude": 62.8333
     },
     {
       "country": "Carribean Netherlands",
