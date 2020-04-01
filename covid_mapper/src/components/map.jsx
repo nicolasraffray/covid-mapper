@@ -14,54 +14,23 @@ export class MapContainer extends Component {
     this.state = {
       isMarkerShowing: true,
       activeMarker: null,
-      lat: null,
-      lng: null,
-      data: null,
       selectedPlace: {},
       activeMarker: {}
     };
   }
 
   onMapClicked = (mapProps, map, event) => {
-    console.log("YOU CLICKED ON THE MAP");
-
     this.setState({
       isMarkerShowing: false,
       activeMarker: ""
     });
-    console.log("mapClicked", this.state.isMarkerShowing);
   };
 
   onMarkerClicked = (props, marker, event) => {
-    console.log("THIS IS THE MARKER ID", marker.id);
-    console.log("This is the props", props);
     this.setState({
       isMarkerShowing: true,
       selectedPlace: props,
       activeMarker: marker
-    });
-
-    console.log("isMarkerShowing", this.state.isMarkerShowing);
-    // console.log("You Clicked on a Marker");
-    // console.log("MapProps", mapProps);
-    // console.log("marker", marker);
-    // console.log("event", event);
-    // console.log("lat long", lat, lng);
-    // console.log("Props", mapProps);
-    console.log("Map", marker);
-    console.log("event", event);
-  };
-
-  apiIsLoaded = (map, maps, center) => {
-    const circle = maps.Circle({
-      strokeColor: "#FF0000",
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: "#FF0000",
-      fillOpacity: 0.3,
-      map,
-      center: center,
-      radius: 60000
     });
   };
 
@@ -76,15 +45,6 @@ export class MapContainer extends Component {
           icon={"http://maps.google.com/mapfiles/ms/icons/blue.png"}
         ></Marker>
       );
-    });
-  };
-
-  getInfo = countryName => {
-    return this.props.countries.forEach(country => {
-      if (country.country === countryName) {
-        console.log("In if this is confirmed number", country.confirmed);
-        return;
-      }
     });
   };
 
@@ -110,7 +70,7 @@ export class MapContainer extends Component {
                   <h6>{country.country}</h6>
                   Confirmed: {country.confirmed}
                   <br></br>
-                  Recovered {country.recovered}
+                  Recovered: {country.recovered}
                   <br></br>
                   Dead: {country.deaths}
                 </div>

@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import "./App.css";
 import Navbar from "./components/navbar";
 import MapContainer from "./components/map";
-import Graph from "./components/graph";
-import Countries from "./components/countries";
 import ref_country_codes from "./components/assets/countries-lat-long.json";
 import us_codes from "./components/assets/USlatlong.json";
 
@@ -79,7 +77,6 @@ class App extends Component {
         }
       })
     );
-    console.log("countries", countries);
     return countries;
   }
 
@@ -112,9 +109,7 @@ class App extends Component {
       <div className="App">
         <Navbar />
         <div className="Container">
-          {/* <Countries countries={this.state.countries} /> */}
           <MapContainer countries={this.state.countries} />
-          {/* <Graph /> */}
         </div>
       </div>
     );
