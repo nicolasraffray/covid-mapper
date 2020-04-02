@@ -32,14 +32,12 @@ class App extends Component {
           }
         }
       ),
-      fetch(
-        "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=US",
-        {
-          method: "GET",
-          headers: {
-            "x-rapidapi-host": "covid-19-coronavirus-statistics.p.rapidapi.com",
-            "x-rapidapi-key": "2bb49386fdmsh5daac6ca9add22ep1484a8jsn9816903163ef"
-          }
+      fetch("https://covid19-data.p.rapidapi.com/us", {
+          "method": "GET",
+          "headers": {
+          "x-rapidapi-host": "covid19-data.p.rapidapi.com",
+          "x-rapidapi-key": "2bb49386fdmsh5daac6ca9add22ep1484a8jsn9816903163ef"
+        }
         }
       )
     ])
@@ -50,7 +48,7 @@ class App extends Component {
     
     .then(([res1, res2, res3]) => {
       this.setState ({
-        countries: this.createCountry(res2.countries_stat, res3.data['covid19Stats']),
+        countries: this.createCountry(res2.countries_stat, res3.list),
         total: res1
       })
     })      
@@ -58,6 +56,7 @@ class App extends Component {
 
 
   createCountry(api_countries, states) {
+    console.log(states)
     const countries = [];
     const usa = [];
     ref_country_codes.ref_country_codes.forEach(one =>
@@ -89,16 +88,16 @@ class App extends Component {
     var unique = USA.filter((v, i, a) => a.indexOf(v) === i);
 
     unique.forEach(function(d) {
-      if (totalStates.hasOwnProperty(d.province)) {
-        totalStates[d.province].deaths += d.deaths;
-        totalStates[d.province].confirmed += d.confirmed;
-        totalStates[d.province].recovered += d.recovered;
+      if (totalStates.hasOwnProperty(d.state)) {
+        totalStates[d.state].deaths += d.deaths;
+        totalStates[d.state].confirmed += d.confirmed;
+        // totalStates[d.state].recovered += d.recovered;
       } else {
-        totalStates[d.province] = {
-          stateName: d.province,
+        totalStates[d.state] = {
+          stateName: d.state,
           deaths: d.deaths,
           confirmed: d.confirmed,
-          recovered: d.recovered
+          // recovered: d.recovered
         };
       }
     });
