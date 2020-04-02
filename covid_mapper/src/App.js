@@ -40,7 +40,37 @@ class App extends Component {
           }
         )
       );
+
+      fetch(
+        "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=US",
+        {
+          method: "GET",
+          headers: {
+            "x-rapidapi-host": "covid-19-coronavirus-statistics.p.rapidapi.com",
+            "x-rapidapi-key": "2bb49386fdmsh5daac6ca9add22ep1484a8jsn9816903163ef"
+          }
+        }
+      )
+        .then(response => response.json())
+        .then(response =>
+          this.setState(
+            {
+              countries: this.updateUS(response.data["covid19Stats"]),
+              isLoaded: true,
+              error: false
+            },
+            error => {
+              this.setState({
+                isLoaded: false,
+                error: true
+              });
+            }
+          )
+        );
+
+    
   }
+
 
   createCountry(api_countries, updateUS) {
     const countries = [];
@@ -62,52 +92,58 @@ class App extends Component {
       })
     );
 
-    // var unique = usa.filter((v, i, a) => a.indexOf(v) === i);
-
-    // let abc = this.updateUS(unique);
-    // us_codes.us_codes.forEach(state =>
-    //   abc.forEach(obj => {
-    //     if (obj.stateName === state.state) {
-    //       countries.push({
-    //         country: state.state,
-    //         recovered: obj.total_recovered,
-    //         deaths: obj.deaths,
-    //         confirmed: obj.cases,
-    //         center: { lat: state.latitude, lng: state.longitude }
-    //       });
-    //     }
-    //   })
-    // );
+  
     return countries;
   }
 
-  // updateUS(USA) {
-  //   var totalStates = {};
-  //   let finalArray = [];
+  updateUS(USA) {
+    var totalStates = {};
+    let finalArray = [];
+    console.log("beginning of update US", this.state.countries)
 
-  //   var unique = USA.filter((v, i, a) => a.indexOf(v) === i);
+    var unique = USA.filter((v, i, a) => a.indexOf(v) === i);
 
-  //   unique.forEach(function(d) {
-  //     if (totalStates.hasOwnProperty(d.province)) {
-  //       totalStates[d.province].deaths += d.deaths;
-  //       totalStates[d.province].confirmed += d.confirmed;
-  //       totalStates[d.province].recovered += d.recovered;
-  //     } else {
-  //       totalStates[d.province] = {
-  //         stateName: d.province,
-  //         deaths: d.deaths,
-  //         confirmed: d.confirmed,
-  //         recovered: d.recovered
-  //       };
-  //     }
-  //   });
+    unique.forEach(function(d) {
+      if (totalStates.hasOwnProperty(d.province)) {
+        totalStates[d.province].deaths += d.deaths;
+        totalStates[d.province].confirmed += d.confirmed;
+        totalStates[d.province].recovered += d.recovered;
+      } else {
+        totalStates[d.province] = {
+          stateName: d.province,
+          deaths: d.deaths,
+          confirmed: d.confirmed,
+          recovered: d.recovered
+        };
+      }
+    });
 
-  //   finalArray = Object.keys(totalStates).map(k => totalStates[k]);
-  //   return finalArray;
-  // }
+    finalArray = Object.keys(totalStates).map(k => totalStates[k]);
+  
+
+      us_codes.us_codes.forEach(state =>
+      finalArray.forEach(obj => {
+        if(obj.stateName === 'Georgia'){
+          obj.stateName = "Georgia, US"
+        }
+        if (obj.stateName === state.state) {
+          this.state.countries.push({
+            country: state.state,
+            recovered: obj.recovered,
+            deaths: obj.deaths,
+            confirmed: obj.confirmed,
+            center: { lat: state.latitude, lng: state.longitude }
+          })
+      }})
+    )
+    let a = this.state.countries
+    console.log("this is a", a)
+    return a 
+  }
+
 
   render() {
-    console.log(this.state.countries);
+    console.log( "beginning of render", this.state.countries);
     return (
       <div className="App">
         <Navbar />
