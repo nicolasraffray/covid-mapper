@@ -42,7 +42,7 @@ export class MapContainer extends Component {
           key={i}
           position={country.center}
           onClick={this.onMarkerClicked}
-          icon={ country.us ? "http://maps.google.com/mapfiles/ms/icons/blue.png" : "http://maps.google.com/mapfiles/ms/icons/red.png"}
+          icon={ country.us ? "http://maps.google.com/mapfiles/ms/icons/blue.png" : "http://maps.google.com/mapfiles/ms/icons/purple.png"}
         ></Marker>
       );
     });
@@ -58,6 +58,7 @@ export class MapContainer extends Component {
         minZoom={2.24}
         maxZoom={12}
         onClick={this.onMapClicked}
+        disableDefaultUI={true}
       >
         <InfoWindow
           marker={this.state.activeMarker}

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import Navbar from "./components/navbar";
+import Header from "./components/navbar";
 import MapContainer from "./components/map";
 import ref_country_codes from "./components/assets/countries-lat-long.json";
 import us_codes from "./components/assets/USlatlong.json";
@@ -49,8 +49,6 @@ class App extends Component {
     })
     
     .then(([res1, res2, res3]) => {
-      console.log(res2)
-      console.log(res3)
       this.setState ({
         countries: this.createCountry(res2.countries_stat, res3.data['covid19Stats']),
         total: res1
@@ -79,7 +77,6 @@ class App extends Component {
       })
     );
     
-    console.log(countries)
     let a = this.updateUS(states, countries)
   
     return a;
@@ -130,11 +127,9 @@ class App extends Component {
 
 
   render() {
-    console.log("countries", this.state.countries)
-    console.log("totals", this.state.total)
     return (
       <div className="App">
-        <Navbar total={this.state.total} />
+        <Header total={this.state.total} />
         <div className="Container">
           <MapContainer countries={this.state.countries} />
         </div>

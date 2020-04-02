@@ -293,8 +293,8 @@
       "alpha2": "CA",
       "alpha3": "CAN",
       "numeric": 124,
-      "latitude": 60,
-      "longitude": -95
+      "latitude": 57.1868,
+      "longitude": -111.6368
     },
     {
       "country": "Cabo Verde",
@@ -1948,11 +1948,6 @@
       "country": "MS Zaandam",
       "latitude": 26.1224,
       "longitude": 80.1373
-    },
-    {
-      "country": "Sint Maarten",
-      "latitude": 18.0425,
-      "longitude": 63.0548
     },
     {
       "country": "Saint Martin",
