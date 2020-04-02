@@ -128,6 +128,7 @@ class App extends Component {
         }
         if (obj.stateName === state.state) {
           this.state.countries.push({
+            us: true,
             country: state.state,
             recovered: obj.recovered,
             deaths: obj.deaths,
