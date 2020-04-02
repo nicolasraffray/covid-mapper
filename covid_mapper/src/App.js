@@ -134,7 +134,7 @@ class App extends Component {
     console.log("totals", this.state.total)
     return (
       <div className="App">
-        <Navbar />
+        <Navbar total={this.state.total} />
         <div className="Container">
           <MapContainer countries={this.state.countries} />
         </div>
