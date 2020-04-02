@@ -99,7 +99,6 @@ class App extends Component {
   updateUS(USA) {
     var totalStates = {};
     let finalArray = [];
-    console.log("beginning of update US", this.state.countries)
 
     var unique = USA.filter((v, i, a) => a.indexOf(v) === i);
 
@@ -138,13 +137,11 @@ class App extends Component {
       }})
     )
     let a = this.state.countries
-    console.log("this is a", a)
     return a 
   }
 
 
   render() {
-    console.log( "beginning of render", this.state.countries);
     return (
       <div className="App">
         <Navbar />
