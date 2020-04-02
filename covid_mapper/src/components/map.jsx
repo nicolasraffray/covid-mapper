@@ -68,11 +68,11 @@ export class MapContainer extends Component {
               return (
                 <div>
                   <h6>{country.country}</h6>
-                  Confirmed: {country.confirmed}
+                  Confirmed Cases: {country.confirmed}
                   <br></br>
-                  Recovered: {country.recovered}
+                  Deaths: {country.deaths}
                   <br></br>
-                  Dead: {country.deaths}
+                  Recoveries: {country.recovered}
                 </div>
               );
             }
