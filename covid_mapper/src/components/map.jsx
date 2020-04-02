@@ -34,17 +34,6 @@ export class MapContainer extends Component {
     });
   };
 
-  // updateMarkerColour() {
-  //     if(country.country === "US") {
-  //       return "http://maps.google.com/mapfiles/ms/icons/blue.png"
-  //     } else {
-  //       return "http://maps.google.com/mapfiles/ms/icons/red.png"
-  //     }
-  //   }
-  // };
-
-
-
   generateMarkers = () => {
     return this.props.countries.map((country, i) => {
       return (
@@ -54,13 +43,10 @@ export class MapContainer extends Component {
           position={country.center}
           onClick={this.onMarkerClicked}
           icon={ country.us ? "http://maps.google.com/mapfiles/ms/icons/blue.png" : "http://maps.google.com/mapfiles/ms/icons/red.png"}
-          // options={{ icon: { url:"https://cdn3.iconfinder.com/data/icons/science-116/64/virus-lab-scientist-biology-cell-medical-512.png", scaledSize: {width: 25, height: 25}} }}
         ></Marker>
       );
     });
   };
-
-
 
   render() {
     return (

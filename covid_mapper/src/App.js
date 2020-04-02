@@ -9,38 +9,29 @@ class App extends Component {
   state = {
     countries: [],
     error: null,
-    isLoaded: false
+    isLoaded: false,
+    total: []
   };
 
   componentDidMount() {
-    fetch(
-      "https://coronavirus-monitor.p.rapidapi.com/coronavirus/cases_by_country.php",
-      {
-        method: "GET",
-        headers: {
-          "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
-          "x-rapidapi-key": "a04279196bmsh77bb3ff9e6f2e74p1f4d03jsn5bc0fbe15879"
+    Promise.all([
+      fetch("https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php", {
+        "method": "GET",
+        "headers": {
+        "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
+        "x-rapidapi-key": "2bb49386fdmsh5daac6ca9add22ep1484a8jsn9816903163ef"
         }
-      }
-    )
-      .then(response => response.json())
-
-      .then(response =>
-        this.setState(
-          {
-            countries: this.createCountry(response.countries_stat),
-            isLoaded: true,
-            error: false
-          },
-          error => {
-            this.setState({
-              isLoaded: false,
-              error: true
-            });
+      }),
+      fetch(
+        "https://coronavirus-monitor.p.rapidapi.com/coronavirus/cases_by_country.php",
+        {
+          method: "GET",
+          headers: {
+            "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
+            "x-rapidapi-key": "a04279196bmsh77bb3ff9e6f2e74p1f4d03jsn5bc0fbe15879"
           }
-        )
-      );
-
+        }
+      ),
       fetch(
         "https://covid-19-coronavirus-statistics.p.rapidapi.com/v1/stats?country=US",
         {
@@ -51,28 +42,24 @@ class App extends Component {
           }
         }
       )
-        .then(response => response.json())
-        .then(response =>
-          this.setState(
-            {
-              countries: this.updateUS(response.data["covid19Stats"]),
-              isLoaded: true,
-              error: false
-            },
-            error => {
-              this.setState({
-                isLoaded: false,
-                error: true
-              });
-            }
-          )
-        );
+    ])
 
+    .then(([res1, res2, res3]) => { 
+      return Promise.all([res1.json(), res2.json(), res3.json() ]) 
+    })
     
+    .then(([res1, res2, res3]) => {
+      console.log(res2)
+      console.log(res3)
+      this.setState ({
+        countries: this.createCountry(res2.countries_stat, res3.data['covid19Stats']),
+        total: res1
+      })
+    })      
   }
 
 
-  createCountry(api_countries, updateUS) {
+  createCountry(api_countries, states) {
     const countries = [];
     const usa = [];
     ref_country_codes.ref_country_codes.forEach(one =>
@@ -91,12 +78,14 @@ class App extends Component {
         }
       })
     );
-
+    
+    console.log(countries)
+    let a = this.updateUS(states, countries)
   
-    return countries;
+    return a;
   }
 
-  updateUS(USA) {
+  updateUS(USA, countries) {
     var totalStates = {};
     let finalArray = [];
 
@@ -126,7 +115,7 @@ class App extends Component {
           obj.stateName = "Georgia, US"
         }
         if (obj.stateName === state.state) {
-          this.state.countries.push({
+          countries.push({
             us: true,
             country: state.state,
             recovered: obj.recovered,
@@ -136,12 +125,13 @@ class App extends Component {
           })
       }})
     )
-    let a = this.state.countries
-    return a 
+    return countries
   }
 
 
   render() {
+    console.log("countries", this.state.countries)
+    console.log("totals", this.state.total)
     return (
       <div className="App">
         <Navbar />
