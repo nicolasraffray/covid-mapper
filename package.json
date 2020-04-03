@@ -23,7 +23,8 @@
     "unirest": "^0.6.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "heroku-prebuild": "cd covid-mapper && npm install && npm run build && cd .. && cd api && npm install",
+    "start": "cd covid-mapper && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
