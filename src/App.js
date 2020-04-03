@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import ".src/App.css";
-import Header from "./src/components/navbar";
-import MapContainer from "./src/components/map";
-import ref_country_codes from "./src/components/assets/countries-lat-long.json";
-import us_codes from "./src/components/assets/USlatlong.json";
+import "./App.css";
+import Header from "./components/navbar";
+import MapContainer from "./components/map";
+import ref_country_codes from "./components/assets/countries-lat-long.json";
+import us_codes from "./components/assets/USlatlong.json";
 
 class App extends Component {
   state = {
@@ -59,7 +59,6 @@ class App extends Component {
   }
 
   createCountry(api_countries, states) {
-    console.log(states);
     const countries = [];
     const usa = [];
     ref_country_codes.ref_country_codes.forEach(one =>
