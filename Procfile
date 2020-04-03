@@ -1,0 +1,1 @@
+web: covid-mapper/package.json
