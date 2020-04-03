@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import "./App.css";
-import Header from "./components/navbar";
-import MapContainer from "./components/map";
-import ref_country_codes from "./components/assets/countries-lat-long.json";
-import us_codes from "./components/assets/USlatlong.json";
+import ".src/App.css";
+import Header from "./src/components/navbar";
+import MapContainer from "./src/components/map";
+import ref_country_codes from "./src/components/assets/countries-lat-long.json";
+import us_codes from "./src/components/assets/USlatlong.json";
 
 class App extends Component {
   state = {
@@ -15,48 +15,51 @@ class App extends Component {
 
   componentDidMount() {
     Promise.all([
-      fetch("https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php", {
-        "method": "GET",
-        "headers": {
-        "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
-        "x-rapidapi-key": "2bb49386fdmsh5daac6ca9add22ep1484a8jsn9816903163ef"
+      fetch(
+        "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php",
+        {
+          method: "GET",
+          headers: {
+            "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
+            "x-rapidapi-key":
+              "2bb49386fdmsh5daac6ca9add22ep1484a8jsn9816903163ef"
+          }
         }
-      }),
+      ),
       fetch(
         "https://coronavirus-monitor.p.rapidapi.com/coronavirus/cases_by_country.php",
         {
           method: "GET",
           headers: {
             "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
-            "x-rapidapi-key": "a04279196bmsh77bb3ff9e6f2e74p1f4d03jsn5bc0fbe15879"
+            "x-rapidapi-key":
+              "a04279196bmsh77bb3ff9e6f2e74p1f4d03jsn5bc0fbe15879"
           }
         }
       ),
       fetch("https://covid19-data.p.rapidapi.com/us", {
-          "method": "GET",
-          "headers": {
+        method: "GET",
+        headers: {
           "x-rapidapi-host": "covid19-data.p.rapidapi.com",
           "x-rapidapi-key": "2bb49386fdmsh5daac6ca9add22ep1484a8jsn9816903163ef"
         }
-        }
-      )
+      })
     ])
 
-    .then(([res1, res2, res3]) => { 
-      return Promise.all([res1.json(), res2.json(), res3.json() ]) 
-    })
-    
-    .then(([res1, res2, res3]) => {
-      this.setState ({
-        countries: this.createCountry(res2.countries_stat, res3.list),
-        total: res1
+      .then(([res1, res2, res3]) => {
+        return Promise.all([res1.json(), res2.json(), res3.json()]);
       })
-    })      
+
+      .then(([res1, res2, res3]) => {
+        this.setState({
+          countries: this.createCountry(res2.countries_stat, res3.list),
+          total: res1
+        });
+      });
   }
 
-
   createCountry(api_countries, states) {
-    console.log(states)
+    console.log(states);
     const countries = [];
     const usa = [];
     ref_country_codes.ref_country_codes.forEach(one =>
@@ -75,9 +78,9 @@ class App extends Component {
         }
       })
     );
-    
-    let a = this.updateUS(states, countries)
-  
+
+    let a = this.updateUS(states, countries);
+
     return a;
   }
 
@@ -96,19 +99,18 @@ class App extends Component {
         totalStates[d.state] = {
           stateName: d.state,
           deaths: d.deaths,
-          confirmed: d.confirmed,
+          confirmed: d.confirmed
           // recovered: d.recovered
         };
       }
     });
 
     finalArray = Object.keys(totalStates).map(k => totalStates[k]);
-  
 
-      us_codes.us_codes.forEach(state =>
+    us_codes.us_codes.forEach(state =>
       finalArray.forEach(obj => {
-        if(obj.stateName === 'Georgia'){
-          obj.stateName = "Georgia, US"
+        if (obj.stateName === "Georgia") {
+          obj.stateName = "Georgia, US";
         }
         if (obj.stateName === state.state) {
           countries.push({
@@ -118,12 +120,12 @@ class App extends Component {
             deaths: obj.deaths,
             confirmed: obj.confirmed,
             center: { lat: state.latitude, lng: state.longitude }
-          })
-      }})
-    )
-    return countries
+          });
+        }
+      })
+    );
+    return countries;
   }
-
 
   render() {
     return (
