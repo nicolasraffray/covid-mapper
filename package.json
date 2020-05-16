@@ -1,7 +1,7 @@
 {
   "name": "covid_mapper",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "engines": {
     "npm": "6.13.4",
     "node": "12.16.1"
@@ -24,7 +24,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
